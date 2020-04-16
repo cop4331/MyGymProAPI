@@ -25,8 +25,10 @@ app.post('/api/signup', async (req, res) =>
   var error = '';
   
   const {username, email, password} = req.body;
+	
+  var hashedPassword = await bcrypt.hash(password, 8);
   
-  const newUser = {Username:username, Email:email, Password:password, isVerified:0}
+  const newUser = {Username:username, Email:email, Password:hashedPassword, isVerified:0}
   
   try
   {
