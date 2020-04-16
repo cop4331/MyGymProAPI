@@ -39,4 +39,63 @@ app.post('/api/signup', async (req, res) =>
   res.status(200).json({Error:error});
 });
 
+app.post('/api/createpost', async (req, res) =>
+{
+  var error = '';
+  
+  const {userID, title, description, date} = req.body;
+  
+  const newPost = {UserID:userID, Title:title, Description:description, Date:date};
+  
+  try
+  {
+  const db = client.db();
+  const result = db.collection('Posts').insertOne(newPost);
+  }
+  catch(e)
+  {
+	  error = e.toString();
+  }
+  
+  res.status(200).json({Error:error});
+});
+
+app.post('/api/deletepost', async (req, res) =>
+{
+  var error = '';
+  
+  const {description} = req.body;
+  
+  try
+  {
+  const db = client.db();
+  const result = db.collection('Posts').deleteOne({Description:description});
+  }
+  catch(e)
+  {
+	  error = e.toString();
+  }
+  
+  res.status(200).json({Error:error});
+});
+
+app.post('/api/getallposts', async (req, res) =>
+{
+  var error = '';
+  var ret = {};
+  
+  try
+  {
+  const db = client.db();
+  const results = await db.collection('Posts').find({}).toArray();
+  ret = JSON.stringify(results);
+  }
+  catch(e)
+  {
+	  error = e.toString();
+  }
+  
+  res.status(200).json({Posts:ret, Error:error});
+});
+
 app.listen(process.env.PORT);
