@@ -124,7 +124,8 @@ app.post('/api/login', async (req, res) =>
     if (isCorrect)
     {
       var id = result[0]._id;
-      res.status(200).json({id:id, Error:error});
+      const accessToken = jwt.sign({username:username}, secret);
+      res.status(200).json({AccessToken:accessToken, id:id, Error:error});
     }
     else
     {
