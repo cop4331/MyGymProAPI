@@ -91,6 +91,42 @@ app.get('/api/verifyemail', async (req, res) =>
       db.collection('Users').update({Username:req.query.username}, {$set:{isVerified:1}});
     }
 });
+
+app.post('/api/login', async (req, res) =>
+{
+  var error = '';
+	
+  const {username, password} = req.body;
+  
+  try
+  {
+    const db = client.db();
+    const result = db.collection('Users').find({Username:username}).toArray();
+    
+    if (result.length == 0)
+    {
+      res.status(403).json({Error:'Username does not exist.'});
+      process.exit();
+    }
+	  
+    var hashedPassword = result[0].Password;
+    if (bcrypt.compareSync(password, hashedPassword))
+    {
+      var id = result[0]._id;
+      res.status(200).json({id:id, Error:error});
+    }
+    else
+    {
+      res.status(403).json({Error:'Incorrect password.'});
+    }
+  }
+  catch(e)
+  {
+    error = e.toString();
+    res.status(200).json({Error:error});
+  }
+});  
+  
    
 app.post('/api/createpost', async (req, res) =>
 {
