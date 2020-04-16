@@ -8,6 +8,8 @@ var bcrypt = require('bcrypt');
 
 var nodemailer = require('nodemailer');
 
+var jwt = require('jsonwebtoken');
+
 var rand = 0;
 
 var app = express();
