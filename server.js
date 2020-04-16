@@ -85,6 +85,8 @@ app.get('/api/verifyemail', async (req, res) =>
   if (req.query.id == rand)
   {
     console.log("Your email has been verified.");
+  }
+});
    
 		
 
