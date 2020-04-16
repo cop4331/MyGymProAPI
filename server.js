@@ -54,7 +54,7 @@ app.post('/api/createpost', async (req, res) =>
   }
   catch(e)
   {
-	  error = e.toString();
+    error = e.toString();
   }
   
   res.status(200).json({Error:error});
@@ -73,7 +73,7 @@ app.post('/api/deletepost', async (req, res) =>
   }
   catch(e)
   {
-	  error = e.toString();
+    error = e.toString();
   }
   
   res.status(200).json({Error:error});
@@ -92,10 +92,191 @@ app.post('/api/getallposts', async (req, res) =>
   }
   catch(e)
   {
-	  error = e.toString();
+    error = e.toString();
   }
   
   res.status(200).json({Posts:ret, Error:error});
+});
+
+app.post('/api/createreply', async (req, res) =>
+{
+  var error = '';
+  
+  const {postID, userID, description, date} = req.body;
+  
+  const newReply = {PostID:postID, UserID:userID, Description:description, Date:date};
+  
+  try
+  {
+  const db = client.db();
+  const result = db.collection('Replies').insertOne(newReply);
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+	
+  res.status(200).json({Error:error});
+});
+
+app.post('/api/deletereply', async (req, res) =>
+{
+  var error = '';	
+	
+  const {description} = req.body;
+  
+  try
+  {
+  const db = client.db();
+  const result = db.collection('Replies').deleteOne({Description:description});
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+  
+  res.status(200).json({Error:error});
+});
+
+app.post('/api/getallreplies', async (req, res) =>
+{
+  var error = '';
+  var ret = {};
+	
+  try
+  {
+  const db = client.db();
+  const results = await db.collection('Replies').find({}).toArray();
+  ret = JSON.stringify(results);
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+  
+  res.status(200).json({Replies:ret, Error:error});
+});
+
+app.post('/api/poststepdata', async (req, res) =>
+{
+  var error = '';
+	
+  const {userID, date, numSteps, distanceTraveled, caloriesBurned, dailyGoal} = req.body;
+  
+  const stepData = {UserID:userID, Date:date, Steps:numSteps, Distance:distanceTraveled, Calories:caloriesBurned, Goal:dailyGoal};
+  
+  try
+  {
+  const db = client.db();
+  const result = db.collection('Steps').insertOne(stepData);
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+  
+  res.status(200).json({Error:error});
+});
+
+app.post('/api/getstepdata', async (req, res) =>
+{
+  var error = '';
+  var ret = {};
+
+  const {userID} = req.body;
+  
+  try
+  {
+  const db = client.db();
+  const results = await db.collection('Steps').find({UserID:userID}).toArray();
+  ret = JSON.stringify(results);
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+
+  res.status(200).json({StepData:ret, Error:error});
+});
+
+app.post('/api/getalltemplates', async (req, res) =>
+{
+  var error = '';
+  var ret = {};
+	
+  try
+  {
+  const db = client.db();
+  const results = await db.collection('Templates').find({}).toArray();
+  ret = JSON.stringify(results);
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+  
+  res.status(200).json({Templates:ret, Error:error});
+});
+
+app.post('/api/createcustomworkout', async (req, res) =>
+{
+  var error = '';	
+	
+  const {userID, customWorkout} = req.body;
+  
+  const newWorkout = {UserID:userID, Workout:customWorkout}
+  
+  try
+  {
+  const db = client.db();
+  const result = db.collection('CustomWorkouts').insertOne(newWorkout);
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+  
+  res.status(200).json({Error:error});
+});
+
+app.post('/api/deletecustomworkout', async (req, res) =>
+{
+  var error = '';	
+	
+  const {workout} = req.body;
+  
+  try
+  {
+  const db = client.db();
+  const result = db.collection('CustomWorkouts').deleteOne({Workout:workout});
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+  
+  res.status(200).json({Error:error});
+});
+
+app.post('/api/getallcustomworkouts', async (req, res) =>
+{
+  var error = '';
+  var ret = {};
+	
+  const {userID} = req.body;
+  
+  try
+  {
+  const db = client.db();
+  const results = await db.collection('CustomWorkouts').find({UserID:userID}).toArray();
+  ret = JSON.stringify(results);
+  }
+  catch(e)
+  {
+    error = e.toString();
+  }
+  
+  res.status(200).json({Workouts:ret, Error:error});
 });
 
 app.listen(process.env.PORT);
