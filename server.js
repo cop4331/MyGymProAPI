@@ -62,7 +62,7 @@ app.post('/api/signup', async (req, res) =>
     
     rand = Math.floor((Math.random() * 100) + 54);
 
-    var link = "http://my-gym-pro.herokuapp.com/api/verifyemail?id=" + rand + "?username=" + username;
+    var link = "http://my-gym-pro.herokuapp.com/api/verifyemail/?id=" + rand + "&username=" + username;
 	  
     mailOptions = 
     {
