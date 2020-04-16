@@ -8,7 +8,7 @@ var bcrypt = require('bcrypt');
 
 var nodemailer = require('nodemailer');
 
-var id = '';
+var rand = 0;
 
 var app = express();
 
@@ -59,8 +59,10 @@ app.post('/api/signup', async (req, res) =>
       service: "gmail",
       auth: {user: "mygymproapp@gmail.com", pass: "Exceptions123?"}
     });
+    
+    rand = Math.floor((Math.random() * 100) + 54);
 
-    var link = "http://my-gym-pro.herokuapp.com/api/verifyemail";
+    var link = "http://my-gym-pro.herokuapp.com/api/verifyemail?id=" + rand + "?username=" + username;
 	  
     mailOptions = 
     {
@@ -82,7 +84,12 @@ app.post('/api/signup', async (req, res) =>
 
 app.get('/api/verifyemail', async (req, res) =>
 {
-    res.send("Your email has been verified.");
+    if (req.query.id == rand)
+    {
+      res.send("Your email has been verified.");
+      const db = client.db();
+      db.collection('Users').update({Username:req.query.username}, {isVerified:1});
+    }
 });
    
 app.post('/api/createpost', async (req, res) =>
