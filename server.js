@@ -108,6 +108,12 @@ app.post('/api/login', async (req, res) =>
       res.status(403).json({Error:'Username does not exist.'});
       process.exit();
     }
+    
+    if (result[0].isVerified == 0)
+    {
+      res.status(403).json({Error:'You must verify your email before logging in.'});
+      process.exit();
+    }
 	  
     var hashedPassword = result[0].Password;
     if (bcrypt.compareSync(password, hashedPassword))
