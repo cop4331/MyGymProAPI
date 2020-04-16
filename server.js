@@ -18,7 +18,7 @@ var app = express();
 
 var conn = 'mongodb+srv://mainaccess:securepassword@cop4331-large-project-l2dqk.mongodb.net/MyGymPro?retryWrites=true&w=majority';
 
-var client = new MongoClient(conn);
+var client = new MongoClient(conn, {useUnifiedTopology:true});
 client.connect();
 
 app.use(bodyParser.json());
