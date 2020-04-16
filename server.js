@@ -30,8 +30,8 @@ app.post('/api/signup', async (req, res) =>
   {
     const db = client.db();
 	  
-    const checkUsernameExistence = await db.collection.find({Username:username}).toArray();
-    const checkEmailExistence = await db.collection.find({Email:email}).toArray();
+    const checkUsernameExistence = await db.collection('Users').find({Username:username}).toArray();
+    const checkEmailExistence = await db.collection('Users').find({Email:email}).toArray();
 	 
     if (checkUsernameExistence.length > 0)
     {
