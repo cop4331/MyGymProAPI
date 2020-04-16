@@ -13,6 +13,7 @@
     "body-parser": "*",
     "express": "*",
     "mongodb": "*",
-    "bcrypt": "*"
+    "bcrypt": "*",
+    "nodemailer": "*"
    }
 }
