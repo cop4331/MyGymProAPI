@@ -57,10 +57,10 @@ app.post('/api/signup', async (req, res) =>
       service: "gmail",
       auth: {user: "mygymproapp@gmail.com", pass: "Exceptions123?"}
     });
-    
-    var rand = Math.floor((Math.random() * 100) + 54);
+	  
+    const linkID = db.collection('Users').find({Username:username}, {_id:1}).toArray();
 
-    var link = "http://my-gym-pro.herokuapp.com/api/verifyemail?id=" + rand;
+    var link = "http://my-gym-pro.herokuapp.com/api/verifyemail?id=" + linkID[0];
 	  
     mailOptions = 
     {
@@ -79,6 +79,14 @@ app.post('/api/signup', async (req, res) =>
   
   res.status(200).json({Error:error});
 });
+
+app.get('/api/verifyemail', async (req, res) =>
+{
+  if (req.query.id == rand)
+  {
+    console.log("Your email has been verified.");
+   
+		
 
 app.post('/api/createpost', async (req, res) =>
 {
