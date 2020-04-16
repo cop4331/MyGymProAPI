@@ -88,7 +88,7 @@ app.get('/api/verifyemail', async (req, res) =>
     {
       res.send("Your email has been verified.");
       const db = client.db();
-      db.collection('Users').update({Username:req.query.username}, {isVerified:1});
+      db.collection('Users').update({Username:req.query.username}, {$set:{isVerified:1}});
     }
 });
    
