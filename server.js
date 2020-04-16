@@ -116,7 +116,8 @@ app.post('/api/login', async (req, res) =>
     }
 	  
     var hashedPassword = result[0].Password;
-    if (bcrypt.compareSync(password, hashedPassword))
+    var isCorrect = await bcrypt.compareSync(password, hashedPassword);
+    if (isCorrect)
     {
       var id = result[0]._id;
       res.status(200).json({id:id, Error:error});
