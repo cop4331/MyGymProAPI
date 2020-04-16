@@ -165,7 +165,7 @@ app.post('/api/login', async (req, res) =>
 });  
   
    
-app.post('/api/createpost', async (req, res) =>
+app.post('/api/createpost', authenticateJWT, async (req, res) =>
 {
   var error = '';
   
@@ -186,7 +186,7 @@ app.post('/api/createpost', async (req, res) =>
   res.status(200).json({Error:error});
 });
 
-app.post('/api/deletepost', async (req, res) =>
+app.post('/api/deletepost', authenticateJWT, async (req, res) =>
 {
   var error = '';
   
@@ -205,7 +205,7 @@ app.post('/api/deletepost', async (req, res) =>
   res.status(200).json({Error:error});
 });
 
-app.post('/api/getallposts', async (req, res) =>
+app.post('/api/getallposts', authenticateJWTasync (req, res) =>
 {
   var error = '';
   var ret = {};
@@ -224,7 +224,7 @@ app.post('/api/getallposts', async (req, res) =>
   res.status(200).json({Posts:ret, Error:error});
 });
 
-app.post('/api/createreply', async (req, res) =>
+app.post('/api/createreply', authenticateJWT, async (req, res) =>
 {
   var error = '';
   
@@ -245,7 +245,7 @@ app.post('/api/createreply', async (req, res) =>
   res.status(200).json({Error:error});
 });
 
-app.post('/api/deletereply', async (req, res) =>
+app.post('/api/deletereply', authenticateJWT, async (req, res) =>
 {
   var error = '';	
 	
@@ -264,7 +264,7 @@ app.post('/api/deletereply', async (req, res) =>
   res.status(200).json({Error:error});
 });
 
-app.post('/api/getallreplies', async (req, res) =>
+app.post('/api/getallreplies', authenticateJWT, async (req, res) =>
 {
   var error = '';
   var ret = {};
@@ -283,7 +283,7 @@ app.post('/api/getallreplies', async (req, res) =>
   res.status(200).json({Replies:ret, Error:error});
 });
 
-app.post('/api/poststepdata', async (req, res) =>
+app.post('/api/poststepdata', authenticateJWT, async (req, res) =>
 {
   var error = '';
 	
@@ -304,7 +304,7 @@ app.post('/api/poststepdata', async (req, res) =>
   res.status(200).json({Error:error});
 });
 
-app.post('/api/getstepdata', async (req, res) =>
+app.post('/api/getstepdata', authenticateJWT, async (req, res) =>
 {
   var error = '';
   var ret = {};
@@ -325,7 +325,7 @@ app.post('/api/getstepdata', async (req, res) =>
   res.status(200).json({StepData:ret, Error:error});
 });
 
-app.post('/api/getalltemplates', async (req, res) =>
+app.post('/api/getalltemplates', authenticateJWT, async (req, res) =>
 {
   var error = '';
   var ret = {};
@@ -344,7 +344,7 @@ app.post('/api/getalltemplates', async (req, res) =>
   res.status(200).json({Templates:ret, Error:error});
 });
 
-app.post('/api/createcustomworkout', async (req, res) =>
+app.post('/api/createcustomworkout', authenticateJWT, async (req, res) =>
 {
   var error = '';	
 	
@@ -365,7 +365,7 @@ app.post('/api/createcustomworkout', async (req, res) =>
   res.status(200).json({Error:error});
 });
 
-app.post('/api/deletecustomworkout', async (req, res) =>
+app.post('/api/deletecustomworkout', authenticateJWT, async (req, res) =>
 {
   var error = '';	
 	
@@ -384,7 +384,7 @@ app.post('/api/deletecustomworkout', async (req, res) =>
   res.status(200).json({Error:error});
 });
 
-app.post('/api/getallcustomworkouts', async (req, res) =>
+app.post('/api/getallcustomworkouts', authenticateJWT, async (req, res) =>
 {
   var error = '';
   var ret = {};
