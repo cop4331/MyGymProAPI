@@ -65,7 +65,7 @@ app.post('/api/signup', async (req, res) =>
     link="http://"+req.get('host')+"/verify?id="+rand;
     mailOptions = 
     {
-      to : req.query.to,
+      to : email,
       subject : "Please confirm your Email account",
       html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"
     }
