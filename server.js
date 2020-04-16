@@ -29,6 +29,19 @@ app.post('/api/signup', async (req, res) =>
   try
   {
     const db = client.db();
+	  
+    const checkUsernameExistence = await db.collection.find({Username:username}).toArray();
+    const checkEmailExistence = await db.collection.find({Email:email}).toArray();
+	 
+    if (checkUsernameExistence.length > 0)
+    {
+    res.status(403).json({Error:"Username already exists."});
+    }
+    else if (checkEmailExistence.length > 0)
+    {
+    res.status(403).json({Error:"Email address already exists."});
+    }
+	  
     const result = db.collection('Users').insertOne(newUser);
   }
   catch(e)
