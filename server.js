@@ -131,9 +131,6 @@ app.post('/api/login', async (req, res) =>
   {
     const db = client.db();
     const result = await db.collection('Users').findOne({Username:username});
-    
-	  res.json({res:result});
-	  process.exit();
 	  
     if (result == null)
     {
