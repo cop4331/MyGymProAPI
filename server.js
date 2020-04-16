@@ -54,35 +54,23 @@ app.post('/api/signup', async (req, res) =>
 
     var smtpTransport = nodemailer.createTransport(
     {
-      service: "Gmail",
+      service: "gmail",
       auth: {user: "mygymproapp@gmail.com", pass: "Exceptions123?"}
     });
+    
+    var rand = Math.floor((Math.random() * 100) + 54);
 
-    var rand, mailOptions, host, link;
-	 
-    rand=Math.floor((Math.random() * 100) + 54);
-    host=req.get('host');
-    link="http://"+req.get('host')+"/verify?id="+rand;
+    var link = "http://my-gym-pro.herokuapp.com/api/verifyemail?id=" + rand;
+	  
     mailOptions = 
     {
+      from: "mygymproapp@gmail.com",
       to : email,
-      subject : "Please confirm your Email account",
-      html : "Hello,<br> Please Click on the link to verify your email.<br><a href="+link+">Click here to verify</a>"
+      subject : "Please confirm your MyGymPro account.",
+      html : "<br>Please click on the link to verify your email.<br> <a href="+link+">CLICK HERE</a>"
     }
-    console.log(mailOptions);
-    smtpTransport.sendMail(mailOptions, function(error, response)
-    {
-      if (error)
-      {
-        console.log(error);
-        res.end("error");
-      }
-      else
-      {
-        console.log("Message sent: " + response.message);
-        res.end("sent");
-      }
-    });
+	  
+    transporter.sendMail(mailOptions);
   }
   catch(e)
   {
