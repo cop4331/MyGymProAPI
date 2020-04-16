@@ -62,7 +62,7 @@ app.post('/api/signup', async (req, res) =>
 	  
     const linkID = db.collection('Users').find({Username:username}, {_id:1}).toArray();
     
-    id = linkID[0].toString();
+    id = linkID[0]._id;
 
     var link = "http://my-gym-pro.herokuapp.com/api/verifyemail?id=" + id;
 	  
