@@ -6,7 +6,9 @@ const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
 
-const client = new MongoClient('mongodb+srv://mainaccess:securepassword@cop4331-large-project-l2dqk.mongodb.net/MyGymPro?retryWrites=true&w=majority');
+const conn = 'mongodb+srv://mainaccess:securepassword@cop4331-large-project-l2dqk.mongodb.net/MyGymPro?retryWrites=true&w=majority';
+
+const client = new MongoClient(conn, {useNewUrlParser:true, useUnifiedTopology:true});
 client.connect();
 
 app.use(bodyParser.json());
