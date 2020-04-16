@@ -130,28 +130,28 @@ app.post('/api/login', async (req, res) =>
   try
   {
     const db = client.db();
-    const result = await db.collection('Users').findOne({Username:username}).toArray();
+    const result = await db.collection('Users').findOne({Username:username});
     
 	  res.json({res:result});
 	  process.exit();
 	  
-    if (result.length == 0)
+    if (result == null)
     {
       res.status(403).json({Error:'Username does not exist.'});
       process.exit();
     }
     
-    if (result[0].isVerified == 0)
+    if (result.isVerified == 0)
     {
       res.status(403).json({Error:'You must verify your email before logging in.'});
       process.exit();
     }
 	  
-    var hashedPassword = result[0].Password;
+    var hashedPassword = result.Password;
     var isCorrect = await bcrypt.compareSync(password, hashedPassword);
     if (isCorrect)
     {
-      var id = result[0]._id;
+      var id = result._id;
       const accessToken = jwt.sign({username:username}, secret);
       res.status(200).json({AccessToken:accessToken, id:id, Error:error});
     }
