@@ -52,7 +52,7 @@ app.post('/api/signup', async (req, res) =>
 	  
     const result = db.collection('Users').insertOne(newUser);
 
-    var smtpTransport = nodemailer.createTransport(
+    var transporter = nodemailer.createTransport(
     {
       service: "gmail",
       auth: {user: "mygymproapp@gmail.com", pass: "Exceptions123?"}
