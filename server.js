@@ -1,14 +1,14 @@
-const express = require('express');
+var express = require('express');
 
-const bodyParser = require('body-parser');
+var bodyParser = require('body-parser');
 
-const MongoClient = require('mongodb').MongoClient;
+var MongoClient = require('mongodb').MongoClient;
 
-const app = express();
+var app = express();
 
-const conn = 'mongodb+srv://mainaccess:securepassword@cop4331-large-project-l2dqk.mongodb.net/MyGymPro?retryWrites=true&w=majority';
+var conn = 'mongodb+srv://mainaccess:securepassword@cop4331-large-project-l2dqk.mongodb.net/MyGymPro?retryWrites=true&w=majority';
 
-const client = new MongoClient(conn, {useNewUrlParser:true, useUnifiedTopology:true});
+var client = new MongoClient(conn);
 client.connect();
 
 app.use(bodyParser.json());
@@ -39,4 +39,4 @@ app.post('/api/signup', async (req, res) =>
   res.status(200).json({Error:error});
 });
 
-app.listen(3000);
+app.listen(process.env.PORT);
