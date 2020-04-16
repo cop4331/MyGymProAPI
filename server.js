@@ -28,6 +28,31 @@ app.get('/', (req, res) =>
   res.send('The server is running.');
 });
 
+const authenticateJWT = (req, res, next) =>
+{
+  const authHeader = req.headers.authorization;
+  
+  if (authHeader)
+  {
+    const token = authHeader.split(' ')[1];
+    
+    jwt.verify(token, secret, (err, user) =>
+    {
+      if (err)
+      {
+        res.sendStatus(403);
+	process.exit();
+      }
+	    
+      next();
+    });
+  }
+  else
+  {
+    res.sendStatus(401);
+  }
+};
+
 app.post('/api/signup', async (req, res) =>
 {
   var error = '';
