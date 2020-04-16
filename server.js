@@ -12,6 +12,8 @@ var jwt = require('jsonwebtoken');
 
 var rand = 0;
 
+const secret = 'supersecretkeythatyouwillneverguess';
+
 var app = express();
 
 var conn = 'mongodb+srv://mainaccess:securepassword@cop4331-large-project-l2dqk.mongodb.net/MyGymPro?retryWrites=true&w=majority';
