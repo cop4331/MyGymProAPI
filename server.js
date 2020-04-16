@@ -60,9 +60,9 @@ app.post('/api/signup', async (req, res) =>
       auth: {user: "mygymproapp@gmail.com", pass: "Exceptions123?"}
     });
 	  
-    const linkID = db.collection('Users').find({Username:username}, {_id:1}).toArray();
+    const linkID = db.collection('Users').find({Username:username}).toArray();
     
-    id = linkID[0]._id;
+    id = (linkID[0]._id).toString();
 
     var link = "http://my-gym-pro.herokuapp.com/api/verifyemail?id=" + id;
 	  
