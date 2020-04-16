@@ -73,14 +73,13 @@ app.post('/api/signup', async (req, res) =>
     if (checkUsernameExistence.length > 0)
     {
     res.status(403).json({Error:"Username already exists."});
-    process.exit();
     }
     else if (checkEmailExistence.length > 0)
     {
     res.status(403).json({Error:"Email address already exists."});
-    process.exit();
     }
-	  
+    else
+    { 
     const result = db.collection('Users').insertOne(newUser);
 
     var transporter = nodemailer.createTransport(
@@ -109,6 +108,7 @@ app.post('/api/signup', async (req, res) =>
   }
   
   res.status(200).json({Error:error});
+  }
 });
 
 app.get('/api/verifyemail', async (req, res) =>
