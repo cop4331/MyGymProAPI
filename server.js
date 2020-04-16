@@ -101,7 +101,7 @@ app.post('/api/login', async (req, res) =>
   try
   {
     const db = client.db();
-    const result = db.collection('Users').find({Username:username}).toArray();
+    const result = await db.collection('Users').find({Username:username}).toArray();
     
     res.json({res:result});
 	  process.exit();
