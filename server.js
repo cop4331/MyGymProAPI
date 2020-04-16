@@ -8,6 +8,8 @@ var bcrypt = require('bcrypt');
 
 var nodemailer = require('nodemailer');
 
+var id = '';
+
 var app = express();
 
 var conn = 'mongodb+srv://mainaccess:securepassword@cop4331-large-project-l2dqk.mongodb.net/MyGymPro?retryWrites=true&w=majority';
@@ -59,8 +61,10 @@ app.post('/api/signup', async (req, res) =>
     });
 	  
     const linkID = db.collection('Users').find({Username:username}, {_id:1}).toArray();
+    
+    id = linkID[0].toString();
 
-    var link = "http://my-gym-pro.herokuapp.com/api/verifyemail?id=" + linkID[0];
+    var link = "http://my-gym-pro.herokuapp.com/api/verifyemail?id=" + id;
 	  
     mailOptions = 
     {
@@ -82,7 +86,7 @@ app.post('/api/signup', async (req, res) =>
 
 app.get('/api/verifyemail', async (req, res) =>
 {
-  if (req.query.id == rand)
+  if (req.query.id == id)
   {
     console.log("Your email has been verified.");
   }
