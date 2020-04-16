@@ -38,3 +38,5 @@ app.post('/api/signup', async (req, res) =>
   
   res.status(200).json({Error:error});
 });
+
+app.listen(3000);
