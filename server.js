@@ -101,6 +101,7 @@ app.post('/api/signup', async (req, res) =>
     }
 	  
     transporter.sendMail(mailOptions);
+    }
   }
   catch(e)
   {
@@ -108,7 +109,6 @@ app.post('/api/signup', async (req, res) =>
   }
   
   res.status(200).json({Error:error});
-  }
 });
 
 app.get('/api/verifyemail', async (req, res) =>
