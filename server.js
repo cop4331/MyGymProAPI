@@ -59,12 +59,8 @@ app.post('/api/signup', async (req, res) =>
       service: "gmail",
       auth: {user: "mygymproapp@gmail.com", pass: "Exceptions123?"}
     });
-	  
-    const linkID = db.collection('Users').find({Username:username}).toArray();
-    
-    id = (linkID[0]._id).toString();
 
-    var link = "http://my-gym-pro.herokuapp.com/api/verifyemail?id=" + id;
+    var link = "http://my-gym-pro.herokuapp.com/api/verifyemail";
 	  
     mailOptions = 
     {
@@ -86,14 +82,9 @@ app.post('/api/signup', async (req, res) =>
 
 app.get('/api/verifyemail', async (req, res) =>
 {
-  if (req.query.id == id)
-  {
-    console.log("Your email has been verified.");
-  }
+    res.send("Your email has been verified.");
 });
    
-		
-
 app.post('/api/createpost', async (req, res) =>
 {
   var error = '';
