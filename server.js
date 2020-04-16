@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 
 var MongoClient = require('mongodb').MongoClient;
 
+var bcrypt = require('bcrypt');
+
 var app = express();
 
 var conn = 'mongodb+srv://mainaccess:securepassword@cop4331-large-project-l2dqk.mongodb.net/MyGymPro?retryWrites=true&w=majority';
