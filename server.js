@@ -205,7 +205,7 @@ app.post('/api/deletepost', authenticateJWT, async (req, res) =>
   res.status(200).json({Error:error});
 });
 
-app.post('/api/getallposts', authenticateJWTasync (req, res) =>
+app.post('/api/getallposts', authenticateJWT, async (req, res) =>
 {
   var error = '';
   var ret = {};
