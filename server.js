@@ -132,6 +132,9 @@ app.post('/api/login', async (req, res) =>
     const db = client.db();
     const result = await db.collection('Users').find({Username:username}).toArray();
     
+	  res.json({res:result});
+	  process.exit();
+	  
     if (result.length == 0)
     {
       res.status(403).json({Error:'Username does not exist.'});
