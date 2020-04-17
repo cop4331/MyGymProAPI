@@ -58,10 +58,8 @@ app.post('/api/signup', async (req, res) =>
   var error = '';
   
   const {username, email, password} = req.body;
-	
-  var hashedPassword = await bcrypt.hash(password, 8);
   
-  const newUser = {Username:username, Email:email, Password:hashedPassword, isVerified:0}
+  const newUser = {Username:username, Email:email, Password:password, isVerified:0}
   
   try
   {
@@ -143,10 +141,8 @@ app.post('/api/login', async (req, res) =>
       res.status(403).json({Error:'You must verify your email before logging in.'});
       process.exit();
     }
-	  
-    var hashedPassword = result.Password;
-    var isCorrect = await bcrypt.compareSync(password, hashedPassword);
-    if (isCorrect)
+	 
+    if (password == result.Password)
     {
       var id = result._id;
       const accessToken = jwt.sign({username:username}, secret);
