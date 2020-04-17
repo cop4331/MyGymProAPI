@@ -59,7 +59,7 @@ app.post('/api/signup', async (req, res) =>
   
   const {username, email, password} = req.body;
 	
-  var hashedPassword = bcrypt.hash(password, 8);
+  var hashedPassword = await bcrypt.hash(password, 8);
   
   const newUser = {Username:username, Email:email, Password:hashedPassword, isVerified:0}
   
